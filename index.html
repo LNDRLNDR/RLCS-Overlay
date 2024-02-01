@@ -1,1 +1,587 @@
-<div>Hello World</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Rocket League Championship Series Overlay and Game HUD</title>
+    <meta name="author" content="LNDRLNDRLNDR">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description"
+        content="Custom Rocket League Broadcasting Overlays and Game HUD made for Rocket League Championship Series (RLCS)">
+    <meta name="keywords"
+        content="Rocket League, RL, RLCS, esports, Overlay, HUD, overlays, broadcast, Rocket League Championship Series">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="ico.png">
+    <link rel="apple-touch-icon" href="ico.png" />
+
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7GPS2BDRQ8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-7GPS2BDRQ8');
+    </script>
+
+
+    <!-- TODO: URL Preview link things with open graphs etc-->
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+            font-family: 'Montserrat', sans-serif;
+            color: #041e49;
+            margin: 0;
+            padding: 0;
+            background: transparent;
+        }
+
+        html {
+            background: #f3f6fc;
+            margin: 0;
+        }
+
+        main {
+            width: min(90%, 700px);
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #ffffff;
+            border: 2px solid transparent;
+            border-radius: 24px;
+            padding: 20px;
+            margin-top: 25px;
+            margin-bottom: 25px;
+
+            color: #041e49;
+            font-size: 1rem;
+            font-weight: 400;
+        }
+
+        #scroll-to-top {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        #scroll-to-top.show {
+            opacity: 1;
+        }
+
+        h1 {
+            font-weight: 900;
+            font-size: 2.25rem;
+
+            margin-bottom: 2px;
+            margin-top: 0;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 10px;
+
+            margin-bottom: 2px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+
+            margin-bottom: 2px;
+        }
+
+        h4 {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        section {
+            margin-left: auto;
+            margin-right: auto;
+            object-fit: scale-down;
+            width: 100%;
+            max-width: 720px;
+            padding-top: 15px;
+        }
+
+        img {
+            margin-left: auto;
+            margin-right: auto;
+            object-fit: scale-down;
+            width: 100%;
+            max-width: 720px;
+        }
+
+        .portfolio_space {
+            display: flex;
+            justify-content: center;
+            flex-flow: column wrap;
+        }
+
+
+        header {
+            width: 100%;
+            background-color: #ffffff;
+            color: #041e49;
+            font-size: 1.5rem;
+            border-bottom: 1px solid #041e49;
+        }
+
+        header ul {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            row-gap: 25px;
+        }
+
+        header li {
+            padding-left: 20px;
+            padding-right: 20px;
+            height: 35px;
+        }
+
+        header {
+            display: flex;
+            flex-flow: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        header li a {
+            display: block;
+            text-transform: uppercase;
+            color: #041e49 !important;
+            text-decoration: none !important;
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: all .25s;
+            border-bottom: 3px solid transparent;
+        }
+
+        header li.active a {
+            display: block;
+            text-transform: uppercase;
+            color: #6696fe !important;
+            text-decoration: none !important;
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: all .25s;
+            border-bottom: 3px solid #6696fe;
+        }
+
+        header li a:hover {
+            display: block;
+            text-transform: uppercase;
+            color: #f8982d !important;
+            text-decoration: none !important;
+            font-size: 1.5rem;
+            font-weight: 300;
+            transition: all .25s;
+            border-bottom: 3px solid #f8982d;
+        }
+
+        .subheader li a,
+        .subheader li.active a,
+        .subheader li a:hover {
+            font-size: 1.25rem;
+        }
+
+        .subheader li {
+            height: 32px;
+        }
+
+        .second_header {
+            width: min(90%, 700px);
+            position: relative;
+            left: 50%;
+            transform: translateX(-50%);
+
+            border-bottom: none;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+        }
+
+
+        .video_box {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 35px;
+
+        }
+
+        .video_box iframe {
+            margin-left: auto;
+            margin-right: auto;
+            width: min(90%, 560px);
+            height: 315px;
+            border-radius: 12px;
+            box-shadow: 2px 2px 2px #1e1e1e70;
+        }
+
+        .discord-btn {
+            background-color: #7289DA;
+            margin-top: 0px;
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 2px 2px 2px #1e1e1e;
+            width: fit-content;
+        }
+
+        .discord-btn:hover {
+            background-color: #f8982d !important;
+            margin-top: 0px;
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 2px 2px 2px #1e1e1e;
+            width: fit-content;
+        }
+
+        .discord-svg {
+            margin-right: 15px;
+            width: 25px;
+            height: 25px;
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+
+        .logo-slider-wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .logo-slider {
+            display: flex;
+            animation: scroll 10s linear infinite;
+        }
+
+        .logo-slider img {
+            height: 100px;
+            max-width: 250px;
+            object-fit: scale-down;
+            margin: 0 25px;
+        }
+
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+
+            100% {
+                transform: translateX(calc(-1610px));
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <ul>
+            <li title="CARL: Analysis Tool for Rocket League">
+                <a href="https://lndrlndr.github.io/">CARL</a>
+            </li>
+            <li title="BARL: Broadcast Assistant for Rocket League">
+                <a href="https://lndrlndr.github.io/BARL-Overlay/">BARL</a>
+            </li>
+
+
+            <li title="Home"><a href="https://lndrlndr.github.io/lndrlndrlndr">
+                    <img style="height: 50px; width: 50px; border-radius: 50%; transform: translateY(-10px)"
+                        alt="LNDRLNDRLNDR" src="https://lndrlndr.github.io/lndrlndrlndr/icon.png" /> </a>
+            </li>
+
+            <li class="active" title="Custom Overlays">
+                <a href="https://lndrlndr.github.io/portfolio/">OVERLAYS</a>
+            </li>
+
+            <li title="Check out my contact information">
+                <a href="https://lndrlndr.github.io/Contact/">CONTACT</a>
+            </li>
+        </ul>
+    </header>
+
+    <header class="second_header" style="background: #e5eaf1;">
+        <ul class="subheader">
+            <li title="Dynamic Overlays Portfolio">
+                <a href="https://lndrlndr.github.io/portfolio">PORTFOLIO</a>
+            </li>
+            <li class="active" title="RLCS Overlay">
+                <a href="https://lndrlndr.github.io/RLCS-Overlay/">RLCS</a>
+            </li>
+            <li title="Dynamic Overlays Clients">
+                <a href="https://lndrlndr.github.io/overlays">CLIENTS</a>
+            </li>
+            <li title="Dynamic Overlays More Information">
+                <a href="https://lndrlndr.github.io/RL-HUD/">INFO</a>
+            </li>
+        </ul>
+    </header>
+    <main>
+        <h1>Rocket League Championship Series Overlay and Game HUD</h1>
+
+        <section id="info">
+            <h2>What is Rocket League Championship Series (RLCS)?</h2>
+            <p>The Rocket League Championship Series also known as RLCS, is the competative esports league for the video
+                game Rocket League. The RLCS represents the highest level of Rocket League esports and attracts the best
+                teams from around the world.</p>
+            <p>For this Championship Series teams have the chance to broadcast their matches to their fanbase and
+                viewers. To make their broadcasts special and match their team's style, they can use a Custom Dynamic
+                Broadcasting Overlay made by me (LNDRLNDRLNDR).
+            </p>
+            <p>This overlay changes the usual look of Rocket League to
+                match the team's own colors and design. This enriches the viewer's experience by incorporating
+                additional features, such as a mini-map and team boost meters, seamlessly integrated with the game data
+                to provide a more immersive and detailed perspective.</p>
+        </section>
+
+        <section id="portfolio">
+
+            <h2>Custom RLCS Team Stream Overlays</h2>
+            <p>
+                In the section below you can find the Overlays and Rocket League Game HUD I coded for each of the RLCS
+                Teams. Each overlay is custom made to fit the team's style and colors. Every broadcast overlay works
+                with OBS Studio or any other streaming software and can be used to stream on any platform like Twitch,
+                YouTube, Facebook, Kick, etc.
+            </p>
+
+            <p>
+                Clients:
+            </p>
+            <div class="logo-slider-wrapper">
+                <div class="logo-slider">
+                    <img src="scrolling_logos/Akrew_Logo.png" alt="Akrew Logo">
+                    <img src="scrolling_logos/GenG_Logo.png" alt="GenG Logo">
+                    <img src="scrolling_logos/G1_Logo.png" alt="G1 Logo">
+                    <img src="scrolling_logos/Oxygen_Logo.png" alt="Oxygen Logo">
+                    <img src="scrolling_logos/PSG_Logo.png" alt="PSG Logo">
+                    <img src="scrolling_logos/Tundra_Logo.png" alt="Tundra Logo">
+                    <img src="scrolling_logos/Quadrant_Logo.png" alt="Quadrant Logo">
+                    <img src="scrolling_logos/Resolve_Logo.png" alt="Resolve Logo">
+                    <img src="scrolling_logos/BDS_Logo.png" alt="Team BDS Logo">
+                    <!-- Duplicate the logos to ensure smooth scrolling -->
+                    <img src="scrolling_logos/Akrew_Logo.png" alt="Akrew Logo">
+                    <img src="scrolling_logos/GenG_Logo.png" alt="GenG Logo">
+                    <img src="scrolling_logos/G1_Logo.png" alt="G1 Logo">
+                    <img src="scrolling_logos/Oxygen_Logo.png" alt="Oxygen Logo">
+                    <img src="scrolling_logos/PSG_Logo.png" alt="PSG Logo">
+                    <img src="scrolling_logos/Tundra_Logo.png" alt="Tundra Logo">
+                    <img src="scrolling_logos/Quadrant_Logo.png" alt="Quadrant Logo">
+                    <img src="scrolling_logos/Resolve_Logo.png" alt="Resolve Logo">
+                    <img src="scrolling_logos/BDS_Logo.png" alt="Team BDS Logo">
+
+
+                </div>
+            </div>
+
+            <div class="portfolio_space">
+
+
+                <div>
+                    <h3>Gen.G Mobil1 Racing</h3>
+                    <p>
+                        Gen.G Mobil1 Racing is a North American Rocket League team formed as a result of a partnership
+                        between American esports organization Gen.G Esports and synthetic motor oil brand Mobil 1.
+                    </p>
+                    <img itemprop="image" title="GenG RLCS Overlay" alt="GenG RLCS Overlay"
+                        src="portfolio_images/GenG_RLCS_Overlay.png" />
+
+                    <div class="video_box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/sEkzurqaQV8"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Oxygen Esports</h3>
+                    <p>
+                        Oxygen Esports (abbreviated as OXG) is an American esports organization located in New England
+                        and founded in May 2020 by a merger of Helix eSports and pro rosters acquired from Team
+                        Reciprocity.
+                    </p>
+                    <img itemprop="image" title="Oxygen Esports RLCS Overlay" alt="Oxygen Esports RLCS Overlay"
+                        src="portfolio_images/Oxygen_RLCS_Overlay.png" />
+
+                    <div class="video_box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/_Faxqb9WQ3U"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Team BDS</h3>
+                    <p>
+                        Team BDS, formerly known as BDS Esport, is a Swiss esports organization.
+                    </p>
+                    <img itemprop="image" title="Team BDS RLCS Overlay" alt="Team BDS RLCS Overlay"
+                        src="portfolio_images/Team_BDS_RLCS_Overlay.png" />
+
+                    <div class="video_box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/O5cg4LVnIWk"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Resolve</h3>
+                    <p>
+                        Resolve is an English esports organization.
+                    </p>
+                    <img itemprop="image" title="Resolve RLCS Overlay" alt="Resolve RLCS Overlay"
+                        src="portfolio_images/Resolve_RLCS_Overlay.png" />
+
+                    <div class="video_box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/_KR60saRATc"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>PSG TUNDRA</h3>
+                    <p>
+                        PSG TUNDRA is a European Rocket League team formed as a result of a partnership between British
+                        esports organization Tundra Esports and French football team Paris Saint-Germain.
+                    </p>
+                    <img itemprop="image" title="PSG Tundra RLCS Overlay" alt="PSG Tundra RLCS Overlay"
+                        src="portfolio_images/PSG_Tundra_RLCS_Overlay.png" />
+
+                    <div class="video_box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/qCCdosrzxBs"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Quadrant</h3>
+                    <p>
+                        Quadrant is an English esports organization founded by Formula One driver Lando Norris in
+                        partnership with Veloce Esports.
+                    </p>
+                    <img itemprop="image" title="Quadrant RLCS Overlay" alt="Quadrant RLCS Overlay"
+                        src="portfolio_images/Quadrant_RLCS_Overlay.png" />
+
+                    <div class="video_box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/K2oqnFSjyMM"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>Akrew</h3>
+                    <p>
+                        Akrew is an American organization based in Arlington, Virginia.
+                    </p>
+                    <img itemprop="image" title="Akrew RLCS Overlay" alt="Akrew RLCS Overlay"
+                        src="portfolio_images/Akrew_RLCS_Overlay.png" />
+
+                    <div class="video_box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/0DOZSSGwsJc"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div>
+                    <h3>G1</h3>
+                    <p>
+                        G1, also known as Gamers First, is an American esports organization which used to host a Spanish
+                        Rocket League team.
+                    </p>
+                    <img itemprop="image" title="G1 RLCS Overlay" alt="G1 RLCS Overlay"
+                        src="portfolio_images/G1_RLCS_Overlay.png" />
+
+                    <div class="video_box">
+                        <iframe width="560" height="315" src="https://www.youtube.com/embed/3YAlBxpBM0o"
+                            title="YouTube video player" frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen></iframe>
+                    </div>
+                </div>
+
+
+                <h2>Learn more</h6>
+                    <p>
+                        Do you want to learn more about custom dynamic broadcasting overlays for Rocket League?
+                        Join the Discord server to get started and level up your stream today!
+                    </p>
+                    <a href="https://discord.gg/SqUq2DhTCR" target="_blank"
+                        class="waves-effect waves-light btn discord-btn btn-large" rel="nofollow">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="discord-svg"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z" />
+                        </svg>
+                        <div>Join the Discord</div>
+                        <i class="material-icons" style="margin-left: 7px">open_in_new</i>
+                    </a>
+
+            </div>
+
+            <div style="height: 15px;"></div>
+
+        </section>
+
+    </main>
+
+    <div style="height: 15px;"></div>
+    <a id="scroll-to-top" class="btn-floating btn-large waves-effect waves-light red">
+        <i class="material-icons">arrow_upward</i>
+    </a>
+
+</body>
+<script>
+    const scrollToTopButton = document.querySelector('#scroll-to-top');
+
+    window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        const main = document.querySelector('main');
+        const mainPosition = main.offsetTop;
+
+        if (currentScroll > mainPosition) {
+            scrollToTopButton.classList.add('show');
+        } else {
+            scrollToTopButton.classList.remove('show');
+        }
+    });
+
+    scrollToTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+</script>
+
+</html>
