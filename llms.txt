@@ -1,0 +1,21 @@
+# Rocket League Championship Series Overlay and Game HUD
+
+> Custom dynamic broadcasting overlays and in-game HUDs made for RLCS-competing teams by LNDRLNDRLNDR. Each overlay replaces the default Rocket League HUD with a fully team-branded design, adding real-time boost meters, a minimap during goal replays, and post-game statistics.
+
+## RLCS Team Overlays
+
+- [RLCS Overlay Portfolio](https://lndrlndr.github.io/RLCS-Overlay/): Full showcase of RLCS team overlays with screenshots and video demos
+- [Gen.G Mobil1 Racing](https://lndrlndr.github.io/RLCS-Overlay/): North American team; Formula 1 racing theme with speed meter, animated sponsor box, minimap on replays
+- [Oxygen Esports (OXG)](https://lndrlndr.github.io/RLCS-Overlay/): American esports organization overlay
+- [Team BDS](https://lndrlndr.github.io/RLCS-Overlay/): Swiss esports organization overlay
+- [PSG Tundra](https://lndrlndr.github.io/RLCS-Overlay/): European team; co-branded Paris Saint-Germain and Tundra Esports overlay
+- [Team Vitality](https://lndrlndr.github.io/RLCS-Overlay/): French organization; two-time RLCS World Champions overlay
+- [Quadrant](https://lndrlndr.github.io/RLCS-Overlay/): Co-founded by F1 driver Lando Norris and Veloce Esports
+- [Akrew](https://lndrlndr.github.io/RLCS-Overlay/): American organization based in Arlington, Virginia
+- [Resolve](https://lndrlndr.github.io/RLCS-Overlay/): English esports organization overlay
+- [G1 / Gamers First](https://lndrlndr.github.io/RLCS-Overlay/): NFL-inspired overlay; hosted the G1 Invitational with a $10k prize pool
+
+## Optional
+
+- [Full Overlay Portfolio](https://lndrlndr.github.io/portfolio/): All custom overlay projects including non-RLCS clients
+- [Contact](https://lndrlndr.github.io/Contact/): Commission a custom overlay
